@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/weather
+    username: postgres
+    password: postgres
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+#        show_sql: true
+#        format_sql: true
+#        ddl-auto: none
+
+  liquibase:
+    change-log: classpath:changelog.yaml
+    enabled: true
+
+config:
+  #  время в минутах, за которое необходимо искать сенсоры
+  weatherTime: 1
+#  колличество выводимых активных сенсоров
+  countWeathers: 20
+#  время за которое сенсоры переходят в неактивное состояние
+  timeActiveSensor: 1
+#  максимальная температура
+  maxValue: 100
+#  минимальная температура
+  minValue: -100

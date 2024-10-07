@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    openfeign:
+      client:
+        config:
+          server:
+            url: http://localhost:8080

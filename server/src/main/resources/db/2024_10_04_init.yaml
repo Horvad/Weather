@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Pavel
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_sensors
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_active
+                  type: BOOLEAN
+            tableName: sensor
+  - changeSet:
+      id: 2
+      author: pavel (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_weather
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: TIMESTAMP
+              - column:
+                  constraints:
+                    nullable: false
+                  name: value
+                  type: DOUBLE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: raining
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: sensor_id
+                  type: UUID
+            tableName: weather
+  - changeSet:
+      id: 3
+      author: pavel (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: sensor_id
+            baseTableName: weather
+            constraintName: FK_DETAILS_BASIC_ON_WEATHER
+            referencedColumnNames: id
+            referencedTableName: sensor
+

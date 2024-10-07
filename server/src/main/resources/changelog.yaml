@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/2024_10_04_init.yaml
