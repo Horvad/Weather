@@ -7,8 +7,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.example.sensor.exeptions.ExceptionResponse;
 import org.example.sensor.service.SensorService;
+import org.example.sensor.validation.NameValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +50,8 @@ public class SensorController {
     @GetMapping(path = "/registration")
     public ResponseEntity<?> registration(
             @Parameter(example = "TestSensor")
-            @RequestHeader String name
-    ){
+            @RequestHeader @Valid @NameValidation String name
+    ) {
         logger.info("start registration sensor");
         service.registration(name);
         logger.info("end registration sensor");

@@ -1,10 +1,10 @@
-package org.example.server.validation;
+package org.example.sensor.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
-import org.example.server.exceptions.ValidException;
+import org.example.sensor.exeptions.ValidException;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

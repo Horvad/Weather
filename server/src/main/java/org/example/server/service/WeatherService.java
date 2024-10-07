@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface WeatherService {
     List<WeatherResponseDTO> getWeatherBySensor(UUID key);
+
     List<WeatherResponseDTO> getWeatherByTime();
+
     void saveWeather(UUID key, WeatherRequestDTO weather);
 }

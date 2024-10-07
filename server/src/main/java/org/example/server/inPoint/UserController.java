@@ -6,10 +6,10 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.server.dto.SensorResponseDTO;
+import org.example.server.exceptions.ExceptionResponse;
 import org.example.server.facade.SensorFacade;
 import org.example.server.validation.UuidValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +60,12 @@ public class UserController {
     @ApiResponse(
             responseCode = "404",
             description = "Сенсор не найден",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
     )
     @ApiResponse(
             responseCode = "400",
             description = "не верно ввенед UUID",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
     )
     @GetMapping(path = "/{key}/measurements")
     public ResponseEntity<?> getMeasurementsWithSensor(

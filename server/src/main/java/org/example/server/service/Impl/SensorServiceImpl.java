@@ -73,7 +73,7 @@ public class SensorServiceImpl implements SensorService {
         SensorEntity entity = sensorRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("sensor not found with id: " + id);
-                    return new  NotFoundException("Датчик не найден, uuid -> " + id);
+                    return new NotFoundException("Датчик не найден, uuid -> " + id);
                 });
         return entity;
     }
@@ -85,7 +85,7 @@ public class SensorServiceImpl implements SensorService {
         SensorEntity entity = sensorRepository.findById(sensorId)
                 .orElseThrow(() -> {
                     log.error("sensor not found  to uuid {}", sensorId);
-                    return new  NotFoundException("Датчик не найден, uuid -> " + sensorId);
+                    return new NotFoundException("Датчик не найден, uuid -> " + sensorId);
                 });
         entity.setActive(status);
         sensorRepository.save(entity);

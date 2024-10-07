@@ -1,6 +1,5 @@
 package org.example.server.exceptions;
 
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 

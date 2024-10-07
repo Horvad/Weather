@@ -13,5 +13,6 @@ import java.util.UUID;
 @Repository
 public interface WeatherRepository extends JpaRepository<WeatherEntity, UUID> {
     Page<WeatherEntity> findBySensorId(Pageable pageable, UUID sensorId);
+
     List<WeatherEntity> findByTimeAfter(LocalDateTime time);
 }

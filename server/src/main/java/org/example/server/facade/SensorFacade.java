@@ -10,8 +10,12 @@ import java.util.UUID;
 
 public interface SensorFacade {
     UUID registration(String name);
+
     CreatedResponseDTO addWeather(UUID key, WeatherRequestDTO weather);
+
     List<SensorResponseDTO> getActiveSensors();
+
     List<WeatherResponseDTO> getWeathersWithSensor(UUID key);
+
     List<WeatherResponseDTO> getWeathersWithTime();
 }

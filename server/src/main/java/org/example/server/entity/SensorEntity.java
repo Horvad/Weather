@@ -24,7 +24,7 @@ public class SensorEntity {
     public SensorEntity() {
     }
 
-    public  SensorEntity(UUID id, String name, boolean isActive) {
+    public SensorEntity(UUID id, String name, boolean isActive) {
         this.id = id;
         this.name = name;
         this.isActive = isActive;

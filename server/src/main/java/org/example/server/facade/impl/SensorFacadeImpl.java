@@ -17,12 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class SensorFacadeImpl implements SensorFacade {
@@ -38,7 +34,6 @@ public class SensorFacadeImpl implements SensorFacade {
     private int maxValue;
     @Value("${config.minValue}")
     private int minValue;
-
 
 
     public SensorFacadeImpl(SensorService sensorService, WeatherService weatherService, ObserverSensorActive observer) {
@@ -79,16 +74,16 @@ public class SensorFacadeImpl implements SensorFacade {
         return weatherService.getWeatherByTime();
     }
 
-    private boolean validateWeather(UUID key, WeatherRequestDTO weather){
-        if(weather.getValue() == null){
+    private boolean validateWeather(UUID key, WeatherRequestDTO weather) {
+        if (weather.getValue() == null) {
             log.error("Sensor value is null {}", key);
-            throw new SensorException("Sensor value is null {} "+ key);
+            throw new SensorException("Sensor value is null {} " + key);
         }
-        if(weather.getValue() > maxValue || weather.getValue() < minValue){
+        if (weather.getValue() > maxValue || weather.getValue() < minValue) {
             log.error("Sensor value {} is greater than 100 {} ", key);
             throw new SensorException("Sensor value {} is greater than max or min value " + key);
         }
-        if(weather.getRaining() == null){
+        if (weather.getRaining() == null) {
             log.error("Sensor ruining is null {}", key);
             throw new SensorException("Sensor ruining is null " + key);
         }

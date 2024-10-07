@@ -8,7 +8,10 @@ import java.util.UUID;
 
 public interface SensorService {
     UUID registration(String name);
+
     List<SensorResponseDTO> getActiveSensors(boolean active);
+
     SensorEntity getSensor(UUID id);
+
     void setSensorStatus(UUID sensorId, boolean status);
 }

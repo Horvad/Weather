@@ -9,18 +9,24 @@ import org.example.sensor.service.SensorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static java.lang.Thread.interrupted;
 import static java.lang.Thread.sleep;
 
 @Service
 public class SensorServiceImpl implements SensorService {
     private static final Logger logger = LoggerFactory.getLogger(SensorServiceImpl.class);
     private static UUID uuid;
+    @Qualifier("TaskExecutorSend")
+    @Autowired
+    private TaskExecutor taskExecutor;
 
     @Autowired
     private FeignClientServer feignClient;
@@ -34,7 +40,8 @@ public class SensorServiceImpl implements SensorService {
     @PreDestroy
     public void stop() {
         running.set(false);
-        Thread.currentThread().interrupt();
+//        Thread.currentThread().interrupt();
+        taskExecutor.execute(this::stop);
     }
 
     @Override
@@ -44,7 +51,7 @@ public class SensorServiceImpl implements SensorService {
             uuid = feignClient.registration(name);
             running.set(true);
         } catch (FeignException e) {
-            if(e.status()>=400 || e.status()<500)
+            if (e.status() >= 400 || e.status() < 500)
                 throw new FeignExceptionBadRequest(e.status(), e.getMessage());
             throw new RuntimeException("Внутрення обибка сервера");
         }
@@ -57,7 +64,6 @@ public class SensorServiceImpl implements SensorService {
             double temp = getTemperature();
             boolean ruining = getRuining();
             logger.info("sending message to server: " + uuid.toString() + ", " + temp + ", " + ruining);
-            logger.info(" " + temp + " " +  ruining);
             try {
                 feignClient.measurements(uuid.toString(),
                         new WeatherRequestDTO(
@@ -66,7 +72,7 @@ public class SensorServiceImpl implements SensorService {
                         ));
             } catch (FeignException e) {
                 logger.error(e.getMessage());
-                if(e.status()==400 || e.status()==404) {
+                if (e.status() == 400 || e.status() == 404) {
                     throw new RuntimeException("Ошибка отправки данных");
                 }
             }
@@ -89,7 +95,7 @@ public class SensorServiceImpl implements SensorService {
         return Math.random() > 0.2;
     }
 
-    private int getSleepSeconds(){
-        return ((int) (3 + Math.random()*12))*1000;
+    private int getSleepSeconds() {
+        return ((int) (3 + Math.random() * 12)) * 1000;
     }
 }

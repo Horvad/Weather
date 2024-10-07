@@ -17,4 +17,12 @@ public class GlobalExceptionHandler {
                 HttpStatus.resolve(exception.status())
         );
     }
+
+    @ExceptionHandler(ValidException.class)
+    public ResponseEntity<ExceptionResponse> handleValidException(ValidException exception) {
+        return new ResponseEntity<>(
+                new ExceptionResponse(exception.getMessage(), LocalDateTime.now()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 }

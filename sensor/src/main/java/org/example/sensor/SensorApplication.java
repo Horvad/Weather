@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableFeignClients
 @SpringBootApplication
-//@EnableAsync
 public class SensorApplication {
 
     public static void main(String[] args) {

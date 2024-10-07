@@ -16,6 +16,7 @@ public class TaskExecutorConfig {
         executor.setCorePoolSize(1);
         executor.setMaxPoolSize(2);
         executor.setWaitForTasksToCompleteOnShutdown(false);
+        executor.setDaemon(false);
         executor.setThreadNamePrefix("TaskExecutor");
         return executor;
     }

@@ -13,9 +13,9 @@ public interface SensorRepository extends JpaRepository<SensorEntity, UUID> {
     SensorEntity findByName(String sensorName);
 
     @Query("""
-        SELECT s 
-        FROM SensorEntity s
-        WHERE s.isActive = ?1
-""")
+                    SELECT s 
+                    FROM SensorEntity s
+                    WHERE s.isActive = ?1
+            """)
     List<SensorEntity> findAllByActive(Boolean active);
 }
